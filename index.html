@@ -376,6 +376,24 @@ const PICKS = {
 const search = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
 const channel = CHANNEL_URL ? CHANNEL_URL + "?sub_confirmation=1" : search("The Sleep Better Company 10 hours");
 document.querySelectorAll(".js-channel").forEach(a => a.href = channel);
+/* Plausible: count clicks on Subscribe and Watch buttons */
+document.addEventListener("click", ev => {
+  const a = ev.target.closest("a[href]");
+  if (!a || !/youtube\.com|youtu\.be/.test(a.href)) return;
+  const text = a.textContent.replace(/\s+/g, " ").trim();
+  const AREA = {bar: "Top bar", lede: "Top of page", nh: "Newest episode", picker: "Sound picker", episodes: "Episode list", fh: "Meet Slumber", band: "Bottom subscribe band"};
+  const box = a.closest(".bar, .lede, .band, section, footer");
+  const key = box ? (box.id || box.getAttribute("aria-labelledby") || [...box.classList].find(c => AREA[c]) || box.tagName.toLowerCase()) : "page";
+  const where = AREA[key] || key;
+  const name = /subscribe/i.test(text) ? "Subscribe" : "Watch";
+  const props = {button: text.slice(0, 80), where};
+  if (a.dataset.ep) { const ep = EPISODES.find(x => x.n == a.dataset.ep); props.episode = ep ? `${ep.n} · ${ep.title}` : a.dataset.ep; }
+  const newTab = a.target === "_blank" || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0;
+  if (newTab || !window.plausible) { window.plausible && plausible(name, {props}); return; }
+  ev.preventDefault();
+  let gone = false; const go = () => { if (!gone) { gone = true; location.href = a.href; } };
+  plausible(name, {props, callback: go}); setTimeout(go, 700);
+});
 document.getElementById("yr").textContent = new Date().getFullYear();
 document.getElementById("hrs").textContent = EPISODES.length * 10;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -402,7 +420,7 @@ document.querySelectorAll("[data-count]").forEach(el => {
       <h3>${esc(e.title)}</h3>
       <p>${esc(e.story || e.blurb)}</p>
       <ul class="hear" aria-label="What you'll hear">${e.sounds.map(s => `<li>${esc(s)}</li>`).join("")}<li>10 hours, no music, no talking</li></ul>
-      <div class="actions">${pending(e) ? `<span class="btn soon">${soonLabel(e)}</span><a class="btn ghost" href="${channel}">Subscribe so you don't miss it</a>` : `<a class="btn primary" href="${link(e)}"><svg aria-hidden="true"><use href="#i-yt"/></svg>Watch episode ${e.n}</a>`}</div>
+      <div class="actions">${pending(e) ? `<span class="btn soon">${soonLabel(e)}</span><a class="btn ghost" href="${channel}">Subscribe so you don't miss it</a>` : `<a class="btn primary" href="${link(e)}" data-ep="${e.n}"><svg aria-hidden="true"><use href="#i-yt"/></svg>Watch episode ${e.n}</a>`}</div>
     </div>`;
 })();
 
@@ -414,7 +432,7 @@ function pick(k){
   document.querySelectorAll(".opt").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === k ? "true" : "false"));
   answer.innerHTML = `<img src="${e.img}" alt="Thumbnail: ${esc(e.title)}">
     <div class="in"><p class="why">${esc(p.why)}</p><h3>${esc(e.title)}</h3><p>${esc(p.note)}</p>
-    <div class="actions">${pending(e) ? `<span class="btn soon">Episode ${e.n} · ${soonLabel(e)}</span>` : `<a class="btn primary" href="${link(e)}"><svg aria-hidden="true"><use href="#i-yt"/></svg>Play episode ${e.n}</a>`}${rest.map(x => `<a class="btn ghost" href="${link(x)}">Or try ${esc(x.title)}</a>`).join("")}</div></div>`;
+    <div class="actions">${pending(e) ? `<span class="btn soon">Episode ${e.n} · ${soonLabel(e)}</span>` : `<a class="btn primary" href="${link(e)}" data-ep="${e.n}"><svg aria-hidden="true"><use href="#i-yt"/></svg>Play episode ${e.n}</a>`}${rest.map(x => `<a class="btn ghost" href="${link(x)}" data-ep="${x.n}">Or try ${esc(x.title)}</a>`).join("")}</div></div>`;
 }
 document.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => pick(b.dataset.k)));
 pick("mind");
@@ -435,7 +453,7 @@ function render(filter){
         <h3>${esc(e.title)}</h3>
         <p>${esc(e.blurb)}</p>
         <div class="tags">${e.sounds.map(s => `<span>${esc(s)}</span>`).join("")}</div>
-        ${pending(e) ? `<span class="watch soon">${soonLabel(e)} · <a href="${channel}">Subscribe</a></span>` : `<a class="watch" href="${link(e)}">Watch on YouTube →</a>`}
+        ${pending(e) ? `<span class="watch soon">${soonLabel(e)} · <a href="${channel}">Subscribe</a></span>` : `<a class="watch" href="${link(e)}" data-ep="${e.n}">Watch on YouTube →</a>`}
       </div>
     </article>`).join("") + (NEXT && filter === "all" && (expanded || list.length <= SHOW) ? `
     <article class="card next" aria-label="Coming next">

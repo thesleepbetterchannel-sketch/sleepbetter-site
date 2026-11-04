@@ -107,7 +107,7 @@ section{padding:96px 0 0}
 /* picker */
 .picker{display:grid;grid-template-columns:1fr 1.1fr;gap:32px;align-items:stretch}
 .q{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
-.opt[data-k="holiday"]{grid-column:1/-1;border-color:rgba(255,210,122,.55)}
+.opt[data-k="holiday"]{border-color:rgba(255,210,122,.55)}
 .opt{font:600 16px var(--body);color:var(--cream);text-align:left;background:rgba(58,51,94,.55);border:1.5px solid var(--line);border-radius:18px;padding:16px 18px;cursor:pointer;transition:border-color .15s ease, background .15s ease}
 .opt small{display:block;color:var(--mist);font-weight:500;font-size:13px;margin-top:2px}
 .opt:hover{border-color:var(--cloud)}
@@ -265,6 +265,7 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;b
           <button class="opt" data-k="fan" aria-pressed="false">I can't sleep without a fan<small>Familiar, even hum</small></button>
           <button class="opt" data-k="snore" aria-pressed="false">Someone's snoring<small>Something full and loud enough</small></button>
           <button class="opt" data-k="away" aria-pressed="false">I want to feel far away<small>Somewhere else entirely</small></button>
+          <button class="opt" data-k="ocean" aria-pressed="false">I want the ocean<small>Waves on the shore</small></button>
           <button class="opt" data-k="holiday" aria-pressed="false">I want that holiday feeling<small>Cozy and festive</small></button>
         </div>
         <div class="answer" id="answer" aria-live="polite"></div>
@@ -367,6 +368,7 @@ const PICKS = {
   fan:   {n: 10, why: "The hum you're used to", note: "A steady fan with soft rain on the window, and no clicks or motor whine."},
   snore: {n: 2,  why: "Full enough to cover it", note: "City rain is full and even, with distant thunder to round it out."},
   away:  {n: 9,  why: "Somewhere else", note: "A rainy night at the beach, with slow waves and a lighthouse in the distance."},
+  ocean: {n: 18, also: [9], why: "Nothing but the sea", note: "Slow waves rolling onto the shore at night. Let the sea carry you off to sleep."},
   holiday: {n: 15, also: [12, 11], why: "Cozy and festive", note: "Snow falling quietly on Christmas Eve, the tree lights glowing, and nothing else. No music, just the holidays."}
 };
 /* ------------------------------------------------------------------------- */
@@ -406,11 +408,12 @@ document.querySelectorAll("[data-count]").forEach(el => {
 /* picker */
 const answer = document.getElementById("answer");
 function pick(k){
-  const p = PICKS[k], e = byN(p.n);
+  const p = PICKS[k], eps = [p.n, ...(p.also || [])].map(n => EPISODES.find(x => x.n === n)).filter(x => x && !pending(x));
+  const e = eps[0] || byN(p.n), rest = eps.slice(1);
   document.querySelectorAll(".opt").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === k ? "true" : "false"));
   answer.innerHTML = `<img src="${e.img}" alt="Thumbnail: ${esc(e.title)}">
     <div class="in"><p class="why">${esc(p.why)}</p><h3>${esc(e.title)}</h3><p>${esc(p.note)}</p>
-    <div class="actions">${pending(e) ? `<span class="btn soon">Episode ${e.n} · ${soonLabel(e)}</span>` : `<a class="btn primary" href="${link(e)}"><svg aria-hidden="true"><use href="#i-yt"/></svg>Play episode ${e.n}</a>`}${(p.also || []).map(byN).filter(x => !pending(x)).map(x => `<a class="btn ghost" href="${link(x)}">Or try ${esc(x.title)}</a>`).join("")}</div></div>`;
+    <div class="actions">${pending(e) ? `<span class="btn soon">Episode ${e.n} · ${soonLabel(e)}</span>` : `<a class="btn primary" href="${link(e)}"><svg aria-hidden="true"><use href="#i-yt"/></svg>Play episode ${e.n}</a>`}${rest.map(x => `<a class="btn ghost" href="${link(x)}">Or try ${esc(x.title)}</a>`).join("")}</div></div>`;
 }
 document.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => pick(b.dataset.k)));
 pick("mind");

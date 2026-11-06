@@ -5,9 +5,9 @@ category: Sound & sleep
 order: 1
 draft: yes
 description: White, pink, brown, green and grey noise explained in plain English: what each sounds like, what the research says, and how to choose the right one for your bedroom.
-listen: 8, 22, 10
+listen: 24, 8, 22, 23, 10
 ---
-<!-- BEFORE PUBLISHING: add the pink (21), white and grey episodes to EPISODES in build.py and to "listen:" above, fill the two [LINK] spots, then delete the "draft: yes" line. Pink goes live Nov 9. -->
+<!-- BEFORE PUBLISHING: add the pink (21) episode to EPISODES in build.py, to "listen:" above and to the pink section, then delete the "draft: yes" line. Pink goes live Nov 9. -->
 
 If you've ever looked for something to fall asleep to, you've probably run into a whole rainbow of noise: white, pink, brown, green, even grey. It can sound like marketing. Mostly it isn't. Each color describes a real difference in how the sound is built, and once you know what to listen for, it's easier to pick the one that suits you and your bedroom.
 
@@ -23,7 +23,7 @@ White noise has equal energy at every frequency. Because there are far more high
 
 That breadth is its strength. It covers a wide range of sounds at once, which is why white noise machines have been around for decades. It's also the most studied color. In one small study, [10 New Yorkers with noisy bedrooms slept better with a white noise machine](https://pubmed.ncbi.nlm.nih.gov/34049045/), both by their own sleep diaries and by wrist-worn sleep trackers. It was a small study, and it was [partly funded by the machine's maker](https://yogasleep.com/pages/clinical-research-shows-white-noise-significantly-improves-sleep-quality-for-individuals-living-in-high-noise-environments), so it's a hint rather than proof.
 
-**Listen:** [Fan Noise & Soft Rain, Cozy Bedroom](https://www.youtube.com/watch?v=v-u9Qk4h1Wk) (a box fan is a close cousin of white noise). [WHITE NOISE EPISODE LINK]
+**Listen:** [Fan Noise & Soft Rain, Cozy Bedroom](https://www.youtube.com/watch?v=v-u9Qk4h1Wk) (a box fan is a close cousin of white noise). Or try [Relaxing White Noise](https://www.youtube.com/watch?v=ofsNXre5Vq4), our softened, never-harsh white noise.
 
 ## Pink noise: softer, like steady rain
 
@@ -55,7 +55,7 @@ Our ears don't hear all frequencies equally. We're most sensitive in the upper-m
 
 Because hearing varies from person to person, there's no single "true" grey noise. It's used in hearing research and some tinnitus sound therapy, and it has a smooth, even, unobtrusive quality. Like green and brown noise, it hasn't been studied as a sleep aid.
 
-**Listen:** [GREY NOISE EPISODE LINK]
+**Listen:** [Soft Grey Noise](https://www.youtube.com/watch?v=f2mzUeqOVqA), a soft, even hush over a misty moonlit lake.
 
 ## So which color is best for sleep?
 

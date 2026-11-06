@@ -48,6 +48,8 @@ EPISODES = {
     15: ("Quiet Christmas Eve Snowfall", "t7_Dvf9XWmA"),
     17: ("Rain on the Window", "LC2IYmP3BdE"),
     22: ("Soft Green Noise", "ZDFy3eKCL2Q"),
+    23: ("Soft Grey Noise", "f2mzUeqOVqA"),
+    24: ("Relaxing White Noise", "ofsNXre5Vq4"),
 }
 
 HEAD_TAGS = """<!-- Google tag (gtag.js) -->

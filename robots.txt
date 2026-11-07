@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /media/
 
 Sitemap: https://thesleepbetter.co/sitemap.xml

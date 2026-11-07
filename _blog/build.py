@@ -47,6 +47,7 @@ EPISODES = {
     14: ("Cozy Fall Cabin", "b2lHocwMGic"),
     15: ("Quiet Christmas Eve Snowfall", "t7_Dvf9XWmA"),
     17: ("Rain on the Window", "LC2IYmP3BdE"),
+    21: ("Soft Pink Noise", "rtTsqzz2Svk"),
     22: ("Soft Green Noise", "ZDFy3eKCL2Q"),
     23: ("Soft Grey Noise", "f2mzUeqOVqA"),
     24: ("Relaxing White Noise", "ofsNXre5Vq4"),

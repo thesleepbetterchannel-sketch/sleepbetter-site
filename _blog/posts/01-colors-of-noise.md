@@ -3,11 +3,9 @@ slug: colors-of-noise
 date: 2026-11-06
 category: Sound & sleep
 order: 1
-draft: yes
 description: White, pink, brown, green and grey noise explained in plain English: what each sounds like, what the research says, and how to choose the right one for your bedroom.
-listen: 24, 8, 22, 23, 10
+listen: 24, 21, 8, 22, 23
 ---
-<!-- BEFORE PUBLISHING: add the pink (21) episode to EPISODES in build.py, to "listen:" above and to the pink section, then delete the "draft: yes" line. Pink goes live Nov 9. -->
 
 If you've ever looked for something to fall asleep to, you've probably run into a whole rainbow of noise: white, pink, brown, green, even grey. It can sound like marketing. Mostly it isn't. Each color describes a real difference in how the sound is built, and once you know what to listen for, it's easier to pick the one that suits you and your bedroom.
 
